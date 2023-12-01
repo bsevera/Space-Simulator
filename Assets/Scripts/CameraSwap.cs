@@ -1,6 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+
 
 public class CameraSwap : MonoBehaviour
 {
@@ -8,22 +7,33 @@ public class CameraSwap : MonoBehaviour
     GameObject _cockPit;
     [SerializeField]
     GameObject _spaceFighter;
+    [SerializeField]
+    GameObject _cinematicCameras;
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.R))
+        if (_cinematicCameras.activeSelf == false)
         {
-            if (_spaceFighter.activeSelf == true)
+            if (Input.GetKeyDown(KeyCode.R))
             {
-                _spaceFighter.SetActive(false);
-                _cockPit.SetActive(true);
-            }
-            else
-            {
-                _spaceFighter.SetActive(true);
-                _cockPit.SetActive(false);
-            }
+                SwapCameras();
+            }                
+        }      
+    }
+
+    private void SwapCameras()
+    {
+        if (_spaceFighter.activeSelf == true)
+        {
+            _spaceFighter.SetActive(false);
+            _cockPit.SetActive(true);
         }
+        else
+        {
+            _spaceFighter.SetActive(true);
+            _cockPit.SetActive(false);
+        }
+
     }
 }
