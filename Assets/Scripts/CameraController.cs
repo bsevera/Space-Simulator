@@ -32,7 +32,7 @@ public class CameraController : MonoBehaviour
     {
         if (_CinematicCameraActive)
         {
-            if (Input.anyKeyDown)
+            if ((Input.anyKeyDown) || (Input.GetAxis("Mouse X") != 0) || (Input.GetAxis("Mouse Y") != 0)) 
             {
                 //deactivate cinematic camera and show spaceship vc
                 DeactivateCinematicCamera();                
@@ -107,5 +107,15 @@ public class CameraController : MonoBehaviour
         _SpaceFighterVC.Priority = 40;
 
         _CinematicCameraActive = false;
+    }
+
+    public void OnMouseDown()
+    {        
+        DeactivateCinematicCamera();
+    }
+
+    public void OnMouseDrag()
+    {
+        DeactivateCinematicCamera();
     }
 }
