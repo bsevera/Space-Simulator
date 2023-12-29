@@ -19,7 +19,7 @@ public class CameraController : MonoBehaviour
     CinemachineBlendListCamera _CinematicCameraVC;
 
     private bool _CinematicCameraActive = false;
-    private float _WaitTime = 5.0f;
+    private float _WaitTime = 15.0f;
     private float _Timer = 0.0f;
 
     private void Start()
@@ -30,12 +30,18 @@ public class CameraController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        SetCameras();
+    }
+
+    private void SetCameras()
+    {
         if (_CinematicCameraActive)
         {
-            if ((Input.anyKeyDown) || (Input.GetAxis("Mouse X") != 0) || (Input.GetAxis("Mouse Y") != 0)) 
+            if ((Input.anyKeyDown) || (Input.GetAxis("Mouse X") != 0) || (Input.GetAxis("Mouse Y") != 0))
             {
                 //deactivate cinematic camera and show spaceship vc
-                DeactivateCinematicCamera();                
+                DeactivateCinematicCamera();
+                ResetTimer();
             }
         }
         else
@@ -43,19 +49,32 @@ public class CameraController : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.R))
             {
                 SwapCameras();
-                _Timer = 0.0f;
+                ResetTimer();
             }
             else
             {
-                _Timer += Time.deltaTime;
-
-                //check to see if 5 seconds has passed.  If it has, activate the cinematic camera
-                if (_Timer > _WaitTime)
+                if ((_CockpitVC.isActiveAndEnabled) && (Input.GetAxis("Mouse X") != 0) && (Input.GetAxis("Mouse Y") != 0))
                 {
-                    ActivateCinematicCamera();
+                    ResetTimer();
+                }
+                else
+                {
+                    _Timer += Time.deltaTime;
+
+                    //check to see if specified seconds has passed.  If it has, activate the cinematic camera
+                    if (_Timer > _WaitTime)
+                    {
+                        ActivateCinematicCamera();
+                        ResetTimer();
+                    }
                 }
             }
         }
+    }
+
+    private void ResetTimer()
+    {
+        _Timer = 0.0f;
     }
 
     private void SetCameraDefaultPriorities()
@@ -83,13 +102,11 @@ public class CameraController : MonoBehaviour
 
             _SpaceFighter.SetActive(true);
             _SpaceFighterVC.Priority = 40;
-        }
+        }        
     }
 
     private void ActivateCinematicCamera()
     {
-        _Timer = 0.0f;
-
         _CockpitVC.Priority = 0;
         _CockPit.SetActive(false);
 
@@ -112,10 +129,11 @@ public class CameraController : MonoBehaviour
     public void OnMouseDown()
     {        
         DeactivateCinematicCamera();
+        _Timer = 0.0f;
     }
 
-    public void OnMouseDrag()
-    {
-        DeactivateCinematicCamera();
-    }
+    //public void OnMouseDrag()
+    //{
+    //    DeactivateCinematicCamera();
+    //}
 }
