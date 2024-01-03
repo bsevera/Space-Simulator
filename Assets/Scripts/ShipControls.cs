@@ -48,11 +48,22 @@ public class ShipControls : MonoBehaviour
             }
         }//decrease speed
 
+
+        Debug.Log("_horizontal = " + _horizontal);
+
+        //if (_horizontal <= -_maxRotate)
+        //{
+        //    _horizontal = -_maxRotate;
+        //}
+        //else if (_horizontal >= _maxRotate) 
+        //{ 
+        //    _horizontal = _maxRotate; 
+        //}
+
+
+
         Vector3 rotateH = new Vector3(0, _horizontal, 0);
         transform.Rotate(rotateH * _rotSpeed * Time.deltaTime);
-
-        //Debug.Log("_horizontal = " + _horizontal);
-        //Debug.Log("_vertical = " + _vertical);
 
         Vector3 rotateV = new Vector3(_vertical, 0, 0);
         transform.Rotate(rotateV * _rotSpeed * Time.deltaTime);
