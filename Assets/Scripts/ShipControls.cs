@@ -48,9 +48,6 @@ public class ShipControls : MonoBehaviour
             }
         }//decrease speed
 
-
-        Debug.Log("_horizontal = " + _horizontal);
-
         //if (_horizontal <= -_maxRotate)
         //{
         //    _horizontal = -_maxRotate;

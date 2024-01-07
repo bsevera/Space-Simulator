@@ -39,7 +39,6 @@ public class CameraController : MonoBehaviour
         {
             if ((Input.anyKey) || (Input.GetAxis("Mouse X") != 0) || (Input.GetAxis("Mouse Y") != 0))
             {
-                Debug.Log("anykeydown or x <> 0 or y <> 0");
                 //deactivate cinematic camera and show spaceship vc
                 DeactivateCinematicCamera();
                 ResetTimer();
