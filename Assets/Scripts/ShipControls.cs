@@ -25,6 +25,11 @@ public class ShipControls : MonoBehaviour
         ShipMovement();
     }
 
+    public void StopShipMovement()
+    {
+        _currentSpeed = 0;
+    }
+
     private void ShipMovement()
     {
         _vertical = Input.GetAxis("Vertical");
