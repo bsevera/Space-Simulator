@@ -12,7 +12,7 @@ public class SpaceDreadnought : MonoBehaviour
     {        
         if (other.tag == "Player")
         {
-            Debug.Log("Position of Spacefighter = " + other.gameObject.transform.position);
+            Debug.Log("Position of Dreadnought = " + this.gameObject.transform.position);
             _Director.Play();
         }
     }
