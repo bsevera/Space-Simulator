@@ -11,8 +11,7 @@ public class SpaceDreadnought : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {        
         if (other.tag == "Player")
-        {
-            Debug.Log("Position of Dreadnought = " + this.gameObject.transform.position);
+        {            
             _Director.Play();
         }
     }
