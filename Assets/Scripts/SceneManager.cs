@@ -16,7 +16,7 @@ public class SceneManager : MonoBehaviour
     }
 
     public void ReloadScene()
-    {
+    {        
         UnityEngine.SceneManagement.SceneManager.LoadScene("SampleScene");
     }
 }
