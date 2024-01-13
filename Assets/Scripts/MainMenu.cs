@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.Playables;
 using UnityEngine.SceneManagement;
 
@@ -15,6 +16,10 @@ public class MainMenu : MonoBehaviour
 
     [SerializeField]
     private PlayableDirector _PlayDirector;
+    [SerializeField]
+    private PlayableDirector _ControlsOpenDirector;
+    [SerializeField]
+    private PlayableDirector _ControlsCloseDirector;
 
     public void Start()
     {
@@ -40,9 +45,20 @@ public class MainMenu : MonoBehaviour
         UnityEngine.SceneManagement.SceneManager.LoadScene("Credits");
     }
 
-    public void LoadControls()
+    public void ShowControls()
     {
-        UnityEngine.SceneManagement.SceneManager.LoadScene("Controls");
+        var eventSystem = EventSystem.current;
+        if (!eventSystem.alreadySelecting) eventSystem.SetSelectedGameObject(null);
+        
+        _ControlsOpenDirector.Play();        
+    }
+
+    public void CloseControls()
+    {
+        var eventSystem = EventSystem.current;
+        if (!eventSystem.alreadySelecting) eventSystem.SetSelectedGameObject(null);
+
+        _ControlsCloseDirector.Play();
     }
 
     public void QuitGame()

@@ -14,39 +14,49 @@ public class Typewriter : MonoBehaviour
     [SerializeField] string leadingChar = "";
     [SerializeField] bool leadingCharBeforeDelay = false;
 
+    private AudioSource _AudioSource;
+
     private void Awake()
     {
         _tmpProText = GetComponent<TMP_Text>()!;
 
         if (_tmpProText != null)
-        {
-            Debug.Log("TypeWriter :: Objective text = " + _tmpProText.text);
-
+        {            
             writer = _tmpProText.text;
-            _tmpProText.text = "";
+            _tmpProText.text = "";            
+        }
 
-            StartCoroutine("TypeWriterTMP");
-        }        
+        GetAudioSourceReference();
+    }
+
+    private void OnEnable()
+    {
+        StartCoroutine("TypeWriterTMP");
+    }
+
+    private void GetAudioSourceReference()
+    {
+        //get the audio component of the player and assign the audio clip for the fire laser sound
+        _AudioSource = GetComponent<AudioSource>();
+        if (_AudioSource == null)
+        {
+            Debug.LogError("Audio Source of the Player is Null");
+        }
     }
 
     IEnumerator TypeWriterTMP()
     {
-        Debug.Log("TypeWriter :: IEnumerator TypewriterTMP - Before Delay of: " + delayBeforeStart);
-
         _tmpProText.text = leadingCharBeforeDelay ? leadingChar : "";
 
         yield return new WaitForSeconds(delayBeforeStart);
 
-        Debug.Log("TypeWriter :: IEnumerator TypewriterTMP - After Delay of: " + delayBeforeStart);
-        Debug.Log("TypeWriter :: Writer Value = " + writer);
-
         foreach (char c in writer)
         {
-            Debug.Log("TypeWriter :: C = " + c);
-
             if (_tmpProText.text.Length > 0)
             {
                 _tmpProText.text = _tmpProText.text.Substring(0, _tmpProText.text.Length - leadingChar.Length);
+                _AudioSource.Play();
+                
             }
             _tmpProText.text += c;
             _tmpProText.text += leadingChar;
