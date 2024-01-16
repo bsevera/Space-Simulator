@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
 
 public class ShipControls : MonoBehaviour
 {
@@ -10,13 +11,14 @@ public class ShipControls : MonoBehaviour
     private float _vertical;
     private float _horizontal;
     [SerializeField] private float _maxRotate;
-    [SerializeField] private GameObject _shipModel;
-    [SerializeField] private GameObject _cockPit;
+    [SerializeField] private GameObject _shipModel;    
+
+    private CameraController _camController;
 
     // Start is called before the first frame update
     void Start()
     {
-        _currentSpeed = 1;
+        _currentSpeed = 1;        
     }
 
     // Update is called once per frame
@@ -47,22 +49,12 @@ public class ShipControls : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.G))
         {
             _currentSpeed--;
+
             if (_currentSpeed < 1)
             {
-                _currentSpeed = 1;
+                _currentSpeed = 1;                
             }
         }//decrease speed
-
-        //if (_horizontal <= -_maxRotate)
-        //{
-        //    _horizontal = -_maxRotate;
-        //}
-        //else if (_horizontal >= _maxRotate) 
-        //{ 
-        //    _horizontal = _maxRotate; 
-        //}
-
-
 
         Vector3 rotateH = new Vector3(0, _horizontal, 0);
         transform.Rotate(rotateH * _rotSpeed * Time.deltaTime);
