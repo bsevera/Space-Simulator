@@ -28,9 +28,11 @@ public class MainMenu : MonoBehaviour
             _quitButton.SetActive(false);
         }
 
+        Time.timeScale = 1.0f;
+
     }
     public void LoadGameAnimation()
-    {
+    {        
         _playButtonText.color = Color.white;
         _PlayDirector.Play();
     }
